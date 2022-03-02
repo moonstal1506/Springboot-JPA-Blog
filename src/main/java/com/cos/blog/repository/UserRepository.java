@@ -10,7 +10,7 @@ import com.cos.blog.model.User;
 //자동으로 bean등록이 된다
 //@Repository생략가능
 public interface UserRepository extends JpaRepository<User, Integer>{
-	//select * from user where username = ?;
+	//select * from user where username = ?1;
 	Optional<User> findByUsername(String username);
 }
 
