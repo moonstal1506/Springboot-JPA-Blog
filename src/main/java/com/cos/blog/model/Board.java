@@ -14,8 +14,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,12 +44,13 @@ public class Board {
 	
 	@ManyToOne(fetch =FetchType.EAGER) //many=board, user=one
 	@JoinColumn(name="userId")
-	private User user; //db는 오브젝트를 저장할 수 없다.- fk/자바는 오브젝트를 저장할수 있다.
+	private User user; //db는 오브젝트를 저장할 수 없다.- fk/자바는 오브젝트를 저장할 수 있다.
 	
 	//mappedBy 연관관계의 주인이 아니다( FK가 아님) db에 칼럼 만들지마
 	@OneToMany(mappedBy="board", fetch = FetchType.EAGER) 
 	//	@JoinColumn(name="replyId") 필요없음 매니쪽에만
-	private List<Reply> reply;
+	@JsonIgnoreProperties({"board"})
+	private List<Reply> replys;
 	
 	@CreationTimestamp
 	private Timestamp createDate;
