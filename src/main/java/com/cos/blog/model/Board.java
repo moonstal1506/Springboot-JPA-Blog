@@ -3,6 +3,7 @@ package com.cos.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -47,9 +49,10 @@ public class Board {
 	private User user; //db는 오브젝트를 저장할 수 없다.- fk/자바는 오브젝트를 저장할 수 있다.
 	
 	//mappedBy 연관관계의 주인이 아니다( FK가 아님) db에 칼럼 만들지마
-	@OneToMany(mappedBy="board", fetch = FetchType.EAGER) 
+	@OneToMany(mappedBy="board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) 
 	//	@JoinColumn(name="replyId") 필요없음 매니쪽에만
 	@JsonIgnoreProperties({"board"})
+	@OrderBy("id desc")
 	private List<Reply> replys;
 	
 	@CreationTimestamp

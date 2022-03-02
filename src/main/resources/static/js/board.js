@@ -78,7 +78,7 @@ let index = {
 					content: $("#reply-content").val()
 			};
 			
-			$.ajax({ 
+		$.ajax({ 
 				type: "POST",
 				url: `/api/board/${data.boardId}/reply`,
 				data: JSON.stringify(data),
